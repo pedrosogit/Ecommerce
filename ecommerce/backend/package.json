@@ -1,0 +1,31 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prebuild": "rimraf dist",
+    "build": "nest build",
+    "start": "node dist/main.js",
+    "start:dev": "nest start --watch",
+    "start:debug": "nest start --debug --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/pedrosogit/Teste-leonardo.git"
+  },
+  "private": true,
+  "devDependencies": {
+    "@nestjs/cli": "^11.0.7",
+    "@types/axios": "^0.14.4",
+    "@types/node": "^24.0.0"
+  },
+  "dependencies": {
+    "@nestjs/axios": "^4.0.0",
+    "@nestjs/platform-express": "^11.1.3",
+    "@nestjs/typeorm": "^11.0.0",
+    "sqlite3": "^5.1.7",
+    "typeorm": "^0.3.24"
+  }
+}
