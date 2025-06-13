@@ -1,24 +1,24 @@
-import React from 'react';
+import React, { useState } from 'react'; // Corrigido
 import styled from 'styled-components';
 import { useCart } from '../../context/CartContext';
 import { createOrder } from '../../api/products';
 
 const CheckoutContainer = styled.div`
-  padding: 20px;
-  max-width: 800px;
-  margin: 0 auto;
+    padding: 20px;
+    max-width: 800px;
+    margin: 0 auto;
 `;
 
 const CheckoutItem = styled.div`
-  display: flex;
-  justify-content: space-between;
-  padding: 10px 0;
-  border-bottom: 1px solid #eee;
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 1px solid #eee;
 `;
 
 const Checkout = () => {
     const { cart, totalPrice, clearCart } = useCart();
-    const [orderSuccess, setOrderSuccess] = useState(false);
+    const [orderSuccess, setOrderSuccess] = useState(false); // Agora funcionará
 
     const handleCheckout = async () => {
         try {
