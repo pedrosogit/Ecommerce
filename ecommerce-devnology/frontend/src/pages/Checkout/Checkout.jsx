@@ -1,7 +1,6 @@
-import React, { useState } from 'react'; // Corrigido
+import React from 'react';
 import styled from 'styled-components';
 import { useCart } from '../../context/CartContext';
-import { createOrder } from '../../api/products';
 
 const CheckoutContainer = styled.div`
     padding: 20px;
@@ -16,38 +15,20 @@ const CheckoutItem = styled.div`
     border-bottom: 1px solid #eee;
 `;
 
+const QuantityControls = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 10px;
+`;
+
 const Checkout = () => {
-    const { cart, totalPrice, clearCart } = useCart();
-    const [orderSuccess, setOrderSuccess] = useState(false); // Agora funcionará
-
-    const handleCheckout = async () => {
-        try {
-            const orderData = {
-                items: cart.map(item => ({
-                    productId: item.id,
-                    quantity: item.quantity,
-                    price: item.price,
-                    name: item.name
-                })),
-                total: totalPrice
-            };
-
-            await createOrder(orderData);
-            clearCart();
-            setOrderSuccess(true);
-        } catch (error) {
-            console.error('Checkout error:', error);
-        }
-    };
-
-    if (orderSuccess) {
-        return (
-            <CheckoutContainer>
-                <h2>Pedido realizado com sucesso!</h2>
-                <p>Obrigado por sua compra.</p>
-            </CheckoutContainer>
-        );
-    }
+    const {
+        cart,
+        totalPrice,
+        removeFromCart,
+        updateQuantity,
+        clearCart
+    } = useCart();
 
     return (
         <CheckoutContainer>
@@ -61,17 +42,48 @@ const Checkout = () => {
                             <CheckoutItem key={item.id}>
                                 <div>
                                     <h3>{item.name}</h3>
-                                    <p>Quantidade: {item.quantity}</p>
+                                    <p>Preço unitário: R$ {item.price.toFixed(2)}</p>
                                 </div>
                                 <div>
-                                    <p>R$ {(item.price * item.quantity).toFixed(2)}</p>
+                                    <QuantityControls>
+                                        <button
+                                            onClick={() => updateQuantity(item.id, item.quantity - 1)}
+                                            disabled={item.quantity <= 1}
+                                        >
+                                            -
+                                        </button>
+                                        <span>{item.quantity}</span>
+                                        <button onClick={() => updateQuantity(item.id, item.quantity + 1)}>
+                                            +
+                                        </button>
+                                    </QuantityControls>
+                                    <p>Subtotal: R$ {(item.price * item.quantity).toFixed(2)}</p>
+                                    <button
+                                        onClick={() => removeFromCart(item.id)}
+                                        style={{ color: 'red', marginTop: '5px' }}
+                                    >
+                                        Remover
+                                    </button>
                                 </div>
                             </CheckoutItem>
                         ))}
                     </div>
                     <div style={{ marginTop: '20px', textAlign: 'right' }}>
                         <h3>Total: R$ {totalPrice.toFixed(2)}</h3>
-                        <button onClick={handleCheckout}>Finalizar Pedido</button>
+                        <div style={{ display: 'flex', gap: '10px', justifyContent: 'flex-end' }}>
+                            <button
+                                onClick={clearCart}
+                                style={{ backgroundColor: '#ff4444' }}
+                            >
+                                Limpar Carrinho
+                            </button>
+                            <button
+                                onClick={() => alert('Pedido finalizado!')}
+                                style={{ backgroundColor: '#00c851' }}
+                            >
+                                Finalizar Pedido
+                            </button>
+                        </div>
                     </div>
                 </>
             )}

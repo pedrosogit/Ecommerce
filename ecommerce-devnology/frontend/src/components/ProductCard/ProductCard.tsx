@@ -1,55 +1,68 @@
 import React from 'react';
 import { useCart } from '../../context/CartContext';
-interface Product {
-    id: string;
-    name: string;
-    price: number;
-    imageUrl?: string;
-    description?: string;
-}
 
-interface ProductCardProps {
-    product: Product;
-}
+const ProductCard = ({ product }) => {
+    const { cart, addToCart } = useCart();
+    const [added, setAdded] = React.useState(false);
+    const [stock] = React.useState(10); // Exemplo - substitua pela propriedade real do produto
 
-const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
-    const { addToCart } = useCart(); // Pegamos a função addToCart do contexto
+    const handleAddToCart = () => {
+        const cartItem = cart.find(item => item.id === product.id);
+        const currentQuantity = cartItem ? cartItem.quantity : 0;
+
+        if (currentQuantity >= stock) {
+            alert(`Não há mais estoque disponível para ${product.name}`);
+            return;
+        }
+
+        addToCart(product);
+        setAdded(true);
+        setTimeout(() => setAdded(false), 2000);
+    };
 
     return (
-        <div className="product-card" style={{
+        <div style={{
             border: '1px solid #ddd',
             borderRadius: '8px',
             padding: '16px',
             margin: '8px',
-            maxWidth: '300px'
+            maxWidth: '300px',
+            position: 'relative'
         }}>
-            {product.imageUrl && (
-                <img
-                    src={product.imageUrl}
-                    alt={product.name}
-                    style={{
-                        width: '100%',
-                        height: '200px',
-                        objectFit: 'cover',
-                        borderRadius: '4px'
-                    }}
-                />
+            {stock <= 3 && (
+                <span style={{
+                    position: 'absolute',
+                    top: '10px',
+                    right: '10px',
+                    backgroundColor: '#ff4444',
+                    color: 'white',
+                    padding: '3px 6px',
+                    borderRadius: '4px',
+                    fontSize: '12px'
+                }}>
+                    Últimas unidades!
+                </span>
             )}
+
             <h3>{product.name}</h3>
             <p>{product.description}</p>
             <p><strong>Preço: R$ {product.price.toFixed(2)}</strong></p>
+            <p>Disponível: {stock} unidades</p>
+
             <button
-                onClick={() => addToCart(product)} // Adiciona o produto ao carrinho
+                onClick={handleAddToCart}
+                disabled={stock === 0}
                 style={{
-                    backgroundColor: '#007bff',
+                    backgroundColor: added ? '#00c851' : stock === 0 ? '#cccccc' : '#007bff',
                     color: 'white',
                     border: 'none',
                     padding: '8px 16px',
                     borderRadius: '4px',
-                    cursor: 'pointer'
+                    cursor: stock === 0 ? 'not-allowed' : 'pointer',
+                    transition: 'background-color 0.3s'
                 }}
             >
-                Adicionar ao Carrinho
+                {stock === 0 ? 'Esgotado' : added ? '✔ Adicionado' : 'Adicionar ao Carrinho'}
             </button>
         </div>
     );
