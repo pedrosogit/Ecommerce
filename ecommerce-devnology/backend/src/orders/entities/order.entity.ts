@@ -1,27 +1,29 @@
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
 export class Order {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column('simple-json')
-    items: Array<{
-        productId: string;
-        quantity: number;
-        price: number;
-        name: string;
-    }>;
+    @Column('json')
+    items: { productId: string; quantity: number; price: number }[];
 
-    @Column('decimal', { precision: 10, scale: 2 })
+    @Column()
+    userId: number;
+
+    @Column('decimal')
     total: number;
 
-    @Column({ default: () => 'CURRENT_TIMESTAMP' })
-    createdAt: Date;
+    @Column({nullable: true})
+    customerEmail: string;
 
-    @Column({ nullable: true })
-    customerEmail?: string;
-
-    @Column({ default: 'pending' })
+    @Column({
+        type: 'text',
+        enum: ['pending', 'completed', 'cancelled'],
+        default: 'pending',
+    })
     status: 'pending' | 'completed' | 'cancelled';
+
+    @Column({ type: 'datetime', default: () => 'CURRENT_TIMESTAMP' })
+    createdAt: Date;
 }

@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { useCart } from '../../context/CartContext';
+import { useNavigate } from 'react-router-dom';
 
 const CheckoutContainer = styled.div`
     max-width: 800px;
@@ -103,6 +104,15 @@ const SummarySection = styled.div`
     margin-top: 2rem;
     padding-top: 1.5rem;
     border-top: 1px solid #eee;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+`;
+
+const ButtonContainer = styled.div`
+    display: flex;
+    justify-content: flex-end;
+    gap: 1.5rem; 
 `;
 
 const SummaryRow = styled.div`
@@ -162,10 +172,25 @@ const Checkout = () => {
         clearCart
     } = useCart();
 
+    const navigate = useNavigate();
+
     const handleClearCart = () => {
         if (window.confirm('Tem certeza que deseja limpar seu carrinho?')) {
             clearCart();
         }
+    };
+
+    const handleCheckout = () => {
+        if (cart.length === 0) {
+            alert('Seu carrinho está vazio!');
+            return;
+        }
+        navigate('/payment', {
+            state: {
+                total: totalPrice,
+                items: cart
+            }
+        });
     };
 
     return (
@@ -221,15 +246,14 @@ const Checkout = () => {
                             <span>Total:</span>
                             <span>R$ {totalPrice.toFixed(2)}</span>
                         </TotalRow>
-
-                        <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+                        <ButtonContainer>
                             <ClearButton onClick={handleClearCart}>
                                 Limpar Carrinho
                             </ClearButton>
-                            <CheckoutButton onClick={() => alert('Pedido finalizado com sucesso!')}>
+                            <CheckoutButton onClick={handleCheckout}>
                                 Finalizar Pedido
                             </CheckoutButton>
-                        </div>
+                        </ButtonContainer>
                     </SummarySection>
                 </>
             )}

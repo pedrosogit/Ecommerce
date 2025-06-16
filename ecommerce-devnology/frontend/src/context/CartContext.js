@@ -65,9 +65,11 @@ export const CartProvider = ({ children }) => {
         );
     };
 
-    // Limpa com confirmação
-    const clearCart = () => {
-        if (cart.length > 0 && window.confirm('Tem certeza que deseja limpar o carrinho?')) {
+    // Limpa com confirmação opcional
+    const clearCart = (confirm = true) => {
+        if (cart.length > 0 && confirm && window.confirm('Tem certeza que deseja limpar o carrinho?')) {
+            setCart([]);
+        } else if (!confirm) {
             setCart([]);
         }
     };
