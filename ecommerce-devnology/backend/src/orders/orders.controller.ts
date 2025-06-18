@@ -77,7 +77,7 @@ export class OrdersController {
         @Param('userId', ParseIntPipe) userId: number, // Adicionado ParseIntPipe
         @Query('page', new DefaultValuePipe(1), ParseIntPipe) page: number, // Corrigido para usar ParseIntPipe
         @Query('limit', new DefaultValuePipe(10), ParseIntPipe) limit: number, // Corrigido para usar ParseIntPipe
-    ): Promise<PaginationDto<Order>> { // Corrigido para PaginationDto<Order>
+    ): Promise<PaginationDto<Order>> {
         return this.ordersService.findByUser(userId, { page, limit });
     }
 }

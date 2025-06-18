@@ -10,7 +10,7 @@ import { Order } from './orders/entities/order.entity';
             type: 'sqlite',
             database: 'db.sqlite',
             entities: [Order],
-            synchronize: true, // Apenas para desenvolvimento
+            synchronize: true,
         }),
         ProductsModule,
         OrdersModule,

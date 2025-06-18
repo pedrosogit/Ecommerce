@@ -1,4 +1,3 @@
-// orders.module.ts
 import { Module } from '@nestjs/common';
 import { APP_PIPE } from '@nestjs/core';
 import { ValidationPipe } from '@nestjs/common'; // Importe do NestJS
@@ -8,7 +7,7 @@ import { ValidationPipe } from '@nestjs/common'; // Importe do NestJS
     providers: [
         {
             provide: APP_PIPE,
-            useClass: ValidationPipe, // Pipe de validação global
+            useClass: ValidationPipe,
         },
     ],
 })

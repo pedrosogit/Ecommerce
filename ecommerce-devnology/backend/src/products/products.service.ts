@@ -56,7 +56,6 @@ export class ProductsService {
     }
 
     private transformProduct(product: any, provider: 'brazilian' | 'european'): ProductDto {
-        // Transformação para o fornecedor brasileiro
         if (provider === 'brazilian') {
             return {
                 id: product.id,
@@ -69,7 +68,7 @@ export class ProductsService {
             };
         }
 
-        // Transformação para o fornecedor europeu
+
         return {
             id: product.id,
             name: product.name,

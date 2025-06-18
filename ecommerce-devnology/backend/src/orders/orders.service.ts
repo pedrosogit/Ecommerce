@@ -4,7 +4,7 @@ import { Repository } from 'typeorm';
 import { Order } from './entities/order.entity';
 import { CreateOrderDto } from '../products/dto/create-order.dto';
 import { PaginationDto } from './common/dto/pagination.dto';
-import { FindOptionsWhere } from 'typeorm'; // Importação explícita para tipagem
+import { FindOptionsWhere } from 'typeorm';
 
 @Injectable()
 export class OrdersService {
@@ -31,7 +31,7 @@ export class OrdersService {
         limit: number;
         status?: 'pending' | 'completed' | 'cancelled';
     }): Promise<PaginationDto<Order>> {
-        const where: FindOptionsWhere<Order> = {}; // Tipagem explícita
+        const where: FindOptionsWhere<Order> = {};
         if (status) {
             where.status = status;
         }
