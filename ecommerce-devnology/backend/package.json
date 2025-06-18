@@ -2,9 +2,7 @@
   "name": "backend",
   "version": "1.0.0",
   "description": "API para integração de e-commerce Devnology",
-  "license": "MIT",
   "scripts": {
-    "prebuild": "rimraf dist",
     "build": "nest build",
     "start": "nest start",
     "start:dev": "nest start --watch",
