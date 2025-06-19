@@ -17,7 +17,7 @@ Pré-requisitos
 
     Node.js 20+
 
-    npm ou yarn
+    npm ou yarn (de preferencia o npm)
 
     Git
 
@@ -26,30 +26,28 @@ Pré-requisitos
     Clone o repositório:
     bash
 
-git clone https://github.com/pedrosogit/Ecommerce
+git clone https://github.com/pedrosogit/Ecommerce.git
 cd ecommerce-devnology
 
 Instale as dependências:
 bash
 
-    # Frontend
-    cd frontend
-    npm install
-
     # Backend
     cd ../backend
+    npm install
+
+    
+    # Frontend
+    cd frontend
     npm install
 
 ⚙️ Configuração
 
     Backend:
-
-        Configure as variáveis de ambiente no .env (se necessário)
-
         Inicie o servidor:
         bash
 
-    npm run start:dev
+    npm run start
 
     Acesse: http://localhost:3000
 
@@ -87,43 +85,4 @@ Componentes Principais
 
     CartContext: Gerenciamento global do carrinho
 
-📂 Estrutura de Arquivos
-text
 
-frontend/
-├── src/
-│   ├── components/
-│   │   ├── ProductCard/
-│   │   ├── ProductList/
-│   │   └── Header/
-│   ├── pages/
-│   │   ├── Home/
-│   │   └── Checkout/
-│   ├── context/
-│   │   └── CartContext.js
-│   ├── api/
-│   └── types/
-backend/
-├── src/
-│   ├── products/
-│   ├── orders/
-│   └── main.ts
-
-💡 Como Contribuir
-
-    Faça um fork do projeto
-
-    Crie uma branch para sua feature (git checkout -b feature/AmazingFeature)
-
-    Commit suas mudanças (git commit -m 'Add some AmazingFeature')
-
-    Push para a branch (git push origin feature/AmazingFeature)
-
-    Abra um Pull Request
-
-📝 Licença
-
-Distribuído sob a licença MIT. Veja LICENSE para mais informações.
-✉️ Contato
-
-Seu Nome - seu-email@exemplo.com

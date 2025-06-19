@@ -1,9 +1,9 @@
 import { Module } from '@nestjs/common';
-import { TypeOrmModule } from '@nestjs/typeorm';
 import { HttpModule } from '@nestjs/axios';
 import { CacheModule } from '@nestjs/cache-manager';
 import { ProductsController } from './products.controller';
 import { ProductsService } from './products.service';
+import { ImagesService } from './images.service';
 
 @Module({
     imports: [
@@ -16,7 +16,7 @@ import { ProductsService } from './products.service';
         }),
     ],
     controllers: [ProductsController],
-    providers: [ProductsService],
+    providers: [ProductsService, ImagesService],
     exports: [ProductsService],
 })
 export class ProductsModule {}
