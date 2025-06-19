@@ -14,7 +14,6 @@ import { ProductsService } from './products.service';
         CacheModule.register({
             ttl: 60 * 5, // 5 minutos de cache
         }),
-        // TypeOrmModule.forFeature([Product]), // Se estiver usando entidade
     ],
     controllers: [ProductsController],
     providers: [ProductsService],
