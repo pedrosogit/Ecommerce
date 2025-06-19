@@ -4,7 +4,6 @@ const CartContext = createContext();
 
 export const CartProvider = ({ children }) => {
     const [cart, setCart] = useState(() => {
-        // Verificação para SSR (Next.js) e navegador
         if (typeof window !== 'undefined') {
             const savedCart = localStorage.getItem('cart');
             return savedCart ? JSON.parse(savedCart) : [];
@@ -19,7 +18,6 @@ export const CartProvider = ({ children }) => {
         }
     }, [cart]);
 
-    // Adiciona com validação de estoque
     const addToCart = (product, availableStock) => {
         setCart((prevCart) => {
             const existingItem = prevCart.find(item => item.id === product.id);
@@ -41,7 +39,7 @@ export const CartProvider = ({ children }) => {
         });
     };
 
-    // Remove com animação (opcional)
+    // Remove com animação
     const removeFromCart = (productId) => {
         setCart((prevCart) => prevCart.filter(item => item.id !== productId));
     };

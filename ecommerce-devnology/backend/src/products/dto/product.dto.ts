@@ -4,10 +4,10 @@ export class ProductDto {
     description: string;
     price: number;
     provider: 'brazilian' | 'european';
-    imageUrl?: string;  // campo opcional
-    category?: string;  // campo opcional
+    imageUrl?: string;
+    category?: string;
 
-    // Adicione um construtor para facilitar a criação
+
     constructor(partial: Partial<ProductDto>) {
         Object.assign(this, partial);
     }

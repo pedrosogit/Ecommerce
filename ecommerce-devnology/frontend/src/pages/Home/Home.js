@@ -16,7 +16,7 @@ const Container = styled.div`
     }
 `;
 
-// Header ajustado para mobile
+// Header responsivo
 const Header = styled.header`
     text-align: center;
     margin-bottom: 30px;

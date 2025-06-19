@@ -5,7 +5,7 @@ import { Type } from 'class-transformer';
 class OrderItemDto {
     @ApiProperty()
     @IsNotEmpty()
-    productId: string; // Mantém como string do segundo arquivo, mas pode ser ajustado para number se necessário
+    productId: string;
 
     @ApiProperty()
     @IsNumber()
@@ -15,7 +15,7 @@ class OrderItemDto {
     @ApiProperty()
     @IsNumber()
     @IsNotEmpty()
-    price: number; // Adicionado do primeiro arquivo
+    price: number;
 }
 
 export class CreateOrderDto {
@@ -28,7 +28,7 @@ export class CreateOrderDto {
     @ApiProperty({ description: 'ID do usuário que fez o pedido' })
     @IsNumber()
     @IsNotEmpty()
-    userId: number; // Adicionado do primeiro arquivo
+    userId: number;
 
     @ApiProperty({ description: 'Total do pedido' })
     @IsDecimal()

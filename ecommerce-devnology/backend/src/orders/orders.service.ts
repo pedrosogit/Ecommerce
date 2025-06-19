@@ -56,7 +56,7 @@ export class OrdersService {
         { page, limit }: { page: number; limit: number },
     ): Promise<PaginationDto<Order>> {
         const [results, total] = await this.ordersRepository.findAndCount({
-            where: { userId } as FindOptionsWhere<Order>, // Tipagem explícita
+            where: { userId } as FindOptionsWhere<Order>,
             skip: (page - 1) * limit,
             take: limit,
             order: { createdAt: 'DESC' },
@@ -72,7 +72,7 @@ export class OrdersService {
 
     async findOne(id: number): Promise<Order> {
         const order = await this.ordersRepository.findOne({
-            where: { id } as FindOptionsWhere<Order>, // Tipagem explícita
+            where: { id } as FindOptionsWhere<Order>,
         });
         if (!order) {
             throw new NotFoundException(`Order with ID ${id} not found`);
@@ -82,7 +82,7 @@ export class OrdersService {
 
     async findByNumber(orderNumber: string): Promise<Order> {
         const order = await this.ordersRepository.findOne({
-            where: { orderNumber } as FindOptionsWhere<Order>, // Tipagem explícita
+            where: { orderNumber } as FindOptionsWhere<Order>,
         });
         if (!order) {
             throw new NotFoundException(`Order with number ${orderNumber} not found`);

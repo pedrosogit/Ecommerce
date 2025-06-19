@@ -8,7 +8,7 @@ export default function PaymentPage() {
     const navigate = useNavigate();
     const { state } = useLocation();
 
-    // Dados do carrinho passados pelo state ou contexto
+    // Dados do carrinho passados via state
     const { total } = state || {};
     const [paymentData, setPaymentData] = useState({
         cardNumber: '',
@@ -32,7 +32,7 @@ export default function PaymentPage() {
         // Simulação de processamento (2 segundos)
         await new Promise(resolve => setTimeout(resolve, 2000));
 
-        // Gerar número de pedido fake e limpar carrinho automaticamente
+        // Gera o número de pedido fake e limpa o carrinho depois do pagamento
         const fakeOrderNumber = `DEV-${Date.now().toString().slice(-6)}`;
         clearCart(false); // Limpa o carrinho sem confirmação
         setOrderNumber(fakeOrderNumber);

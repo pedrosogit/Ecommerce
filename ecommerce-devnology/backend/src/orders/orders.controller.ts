@@ -28,7 +28,7 @@ export class OrdersController {
     @ApiResponse({ status: 201, description: 'Pedido criado com sucesso', type: Order })
     @ApiResponse({ status: 400, description: 'Dados inválidos' })
     async createOrder(@Body() createOrderDto: CreateOrderDto) {
-        const order = await this.ordersService.createOrder(createOrderDto); // Adicionado await
+        const order = await this.ordersService.createOrder(createOrderDto);
         if (!order) {
             throw new NotFoundException('Order creation failed');
         }
@@ -45,7 +45,7 @@ export class OrdersController {
         @Query('page', new DefaultValuePipe(1), ParseIntPipe) page: number,
         @Query('limit', new DefaultValuePipe(10), ParseIntPipe) limit: number,
         @Query('status') status?: 'pending' | 'completed' | 'cancelled',
-    ): Promise<PaginationDto<Order>> { // Corrigido para PaginationDto<Order>
+    ): Promise<PaginationDto<Order>> {
         return this.ordersService.findAll({ page, limit, status });
     }
 
@@ -54,7 +54,7 @@ export class OrdersController {
     @ApiParam({ name: 'id', type: Number })
     @ApiResponse({ status: 200, description: 'Pedido encontrado', type: Order })
     @ApiResponse({ status: 404, description: 'Pedido não encontrado' })
-    async findOne(@Param('id', ParseIntPipe) id: number) { // Adicionado ParseIntPipe
+    async findOne(@Param('id', ParseIntPipe) id: number) {
         return this.ordersService.findOne(id);
     }
 
@@ -75,8 +75,8 @@ export class OrdersController {
     @ApiResponse({ status: 200, description: 'Lista de pedidos do usuário', type: PaginationDto })
     async findByUser(
         @Param('userId', ParseIntPipe) userId: number, // Adicionado ParseIntPipe
-        @Query('page', new DefaultValuePipe(1), ParseIntPipe) page: number, // Corrigido para usar ParseIntPipe
-        @Query('limit', new DefaultValuePipe(10), ParseIntPipe) limit: number, // Corrigido para usar ParseIntPipe
+        @Query('page', new DefaultValuePipe(1), ParseIntPipe) page: number,
+        @Query('limit', new DefaultValuePipe(10), ParseIntPipe) limit: number,
     ): Promise<PaginationDto<Order>> {
         return this.ordersService.findByUser(userId, { page, limit });
     }
